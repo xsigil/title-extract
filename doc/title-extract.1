@@ -1,0 +1,52 @@
+.TH TITLE-EXTRACT 1 "September 2026" "Version 1.1.0" "User Commands"
+.SH NAME
+title-extract \- fast stream-oriented HTML title extractor
+.SH SYNOPSIS
+.B title-extract
+[\fIOPTIONS\fR] [\fIFILE\fR...]
+.br
+.B cat
+\fIfile.html\fR |
+.B title-extract
+.SH DESCRIPTION
+.B title-extract
+reads HTML input from standard input or specified files and extracts the text within the first
+.B <title>
+tag. It parses tokens in a single-pass stream without building a DOM tree, achieving near-zero allocations and maximum execution speed.
+.PP
+Parsing terminates immediately when a valid title is extracted, or when the
+.B </head>
+or
+.B <body>
+tag is encountered.
+.SH OPTIONS
+.TP
+.BR \-h ", " \-\-help
+Display command usage and exit.
+.TP
+.BR \-v ", " \-\-version
+Output version information and exit.
+.SH EXIT STATUS
+.TP
+.B 0
+Success. Title was found and printed to standard output.
+.TP
+.B 1
+No title found.
+.TP
+.B 2
+I/O error or malformed token stream.
+.SH EXAMPLES
+Extract title from a remote URL:
+.IP
+.nf
+curl -sL https://example.com | title-extract
+.fi
+.PP
+Extract titles from multiple local files:
+.IP
+.nf
+title-extract page1.html page2.html
+.fi
+.SH AUTHOR
+Crafted for sovereign POSIX environments.
